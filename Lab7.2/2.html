@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task 2 – Email Validation</title>
+</head>
+<body>
+  <h2>Email </h2>
+
+  <form onsubmit="return validateEmail()">
+    Email: <input type="text" id="email" name="email" onblur="checkEmail()">
+    <p id="eError"></p>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    let eError = document.getElementById("eError");
+
+    function checkEmail() {
+      let email = document.getElementById("email").value.trim();
+
+      
+      if (email === "") {
+        eError.innerHTML = "Email cannot be empty!";
+        eError.style.color = "red";
+        return false;
+      }
+
+      
+      let atIndex = email.indexOf("@");
+      let lastAtIndex = email.lastIndexOf("@");
+      if (atIndex === -1 || atIndex !== lastAtIndex) {
+        eError.innerHTML = "Email must contain one '@' symbol!";
+        eError.style.color = "red";
+        return false;
+      }
+
+      
+      if (atIndex === 0 || atIndex === email.length - 1) {
+        eError.innerHTML = "Email must have characters before and after '@'!";
+        eError.style.color = "red";
+        return false;
+      }
+
+      
+      let dotIndex = email.indexOf(".", atIndex);
+      if (dotIndex === -1) {
+        eError.innerHTML = "Email must contain '.' after '@'!";
+        eError.style.color = "red";
+        return false;
+      }
+
+      
+      if (dotIndex === email.length - 1) {
+        eError.innerHTML = "Email cannot end with '.'!";
+        eError.style.color = "red";
+        return false;
+      }
+
+      eError.innerHTML = "";
+      return true;
+    }
+
+    function validateEmail() {
+      return checkEmail(); 
+    }
+  </script>
+</body>
+</html>

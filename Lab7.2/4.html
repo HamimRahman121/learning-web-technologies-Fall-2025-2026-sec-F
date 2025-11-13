@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task 4 – Date Validation</title>
+</head>
+<body>
+  <h2>Date (dd/mm/yyyy)</h2>
+
+  <form onsubmit="return validateDate()">
+    Date: <input type="text" id="day" size="2" placeholder="dd"> /
+    <input type="text" id="month" size="2" placeholder="mm"> /
+    <input type="text" id="year" size="4" placeholder="yyyy">
+    <p id="dError"></p>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    let dError = document.getElementById("dError");
+
+    function checkDate() {
+      let day = document.getElementById("day").value.trim();
+      let month = document.getElementById("month").value.trim();
+      let year = document.getElementById("year").value.trim();
+
+      if (day === "" || month === "" || year === "") {
+        dError.innerHTML = "Date fields cannot be empty!";
+        dError.style.color = "red";
+        return false;
+      }
+
+      if (isNaN(day) || isNaN(month) || isNaN(year)) {
+        dError.innerHTML = "All date fields must be numbers!";
+        dError.style.color = "red";
+        return false;
+      }
+
+      day = Number(day);
+      month = Number(month);
+      year = Number(year);
+
+      if (day < 1 || day > 31) {
+        dError.innerHTML = "Day must be between 1 and 31!";
+        dError.style.color = "red";
+        return false;
+      }
+
+      if (month < 1 || month > 12) {
+        dError.innerHTML = "Month must be between 1 and 12!";
+        dError.style.color = "red";
+        return false;
+      }
+
+      if (year < 1900 || year > 2016) {
+        dError.innerHTML = "Year must be between 1900 and 2016!";
+        dError.style.color = "red";
+        return false;
+      }
+
+      dError.innerHTML = "";
+      return true;
+    }
+
+    function validateDate() {
+      return checkDate();
+    }
+  </script>
+</body>
+</html>
